@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', function() {  //
     function showTabContent(b) {
         if (tabContent[b].classList.contains('hide')){
             tabContent[b].classList.remove('hide');
-            tabContent[b].classList.add('show');git push -u origin master 
+            tabContent[b].classList.add('show');
         }
     }
 
@@ -41,9 +41,70 @@ window.addEventListener('DOMContentLoaded', function() {  //
                 if (target == tab[i]) {
                     hideTabContent(0);
                     showTabContent(i);
-                    break; //sdads
+                    break; 
                 }
             }
         }
     });
+
+    //Timer
+
+    let deadline = '2019-10-28'; //Out of time
+
+    function getTimeRemaining(endtime) {
+        let t = Date.parse(endtime) - Date.parse(new Date()),
+            seconds = Math.floor((t/1000) % 60),
+            minutes = Math.floor((t/1000/60) % 60),
+            hours = Math.floor((t/1000/60/60) % 24),
+            days = Math.floor((t/(1000*60*60*24)));
+
+
+            return {
+                'total' : t,
+                'days' : days,
+                'hours' : hours,
+                'minutes' : minutes,
+                'seconds' : seconds 
+            };
+    }
+
+    function setClock(id, endtime) {
+        let timer = document.getElementById(id),
+            days = timer.querySelector('.days'),
+            hours = timer.querySelector('.hours'),
+            minutes = timer.querySelector('.minutes'),
+            seconds = timer.querySelector('.seconds'),
+            timeInterval = setInterval(updateClock, 1000);
+
+        function updateClock() {
+            let t = getTimeRemaining(endtime);
+            days.textContent = addZero(t.days);
+            hours.textContent = addZero(t.hours);
+            minutes.textContent = addZero(t.minutes);
+            seconds.textContent = addZero(t.seconds);
+
+            if (t.total <= 0) {
+                clearInterval(timeInterval);
+            }
+
+            if (t.total <= 0) { //zero numbers if data ended
+                console.log('Data is less a nul');
+                hours.textContent = '00';
+                minutes.textContent = '00';
+                seconds.textContent = '00';
+            }
+        }
+
+        function addZero(t) {
+            if (t < 10) {
+                return t = '0' + t;
+            } else {
+                return t;
+            }
+        }
+    
+    }
+
+    setClock('timer',deadline); //вызываем функцию
+    
 });
