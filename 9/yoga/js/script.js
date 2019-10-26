@@ -85,10 +85,6 @@ window.addEventListener('DOMContentLoaded', function() {  //
 
             if (t.total <= 0) {
                 clearInterval(timeInterval);
-            }
-
-            if (t.total <= 0) { //zero numbers if data ended
-                console.log('Data is less a nul');
                 hours.textContent = '00';
                 minutes.textContent = '00';
                 seconds.textContent = '00';
